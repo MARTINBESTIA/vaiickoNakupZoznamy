@@ -8,6 +8,7 @@ use Framework\Core\BaseController;
 use Framework\Http\Request;
 use Framework\Http\Responses\Response;
 use Framework\Http\Responses\ViewResponse;
+use App\Models\User;
 
 /**
  * Class AuthController
@@ -19,6 +20,7 @@ use Framework\Http\Responses\ViewResponse;
  */
 class AuthController extends BaseController
 {
+
     /**
      * Redirects to the login page.
      *
@@ -27,6 +29,58 @@ class AuthController extends BaseController
      *
      * @return Response The response object for the redirection to the login page.
      */
+
+    public function register(Request $request): Response
+    {
+        $errors = array();
+
+        if ($request->isPost()) {
+            $username = $request->value('username');
+            $password = $request->value('password');
+            $confirmPassword = $request->value('confirmPassword');
+
+            if (strlen($username) < 3) {
+                $errors[] = 'Username must be at least 3 characters long.';
+            }
+
+            if (strlen($username) > 15) {
+                $errors[] = 'Username cannot be longer than 15 characters.';
+            }
+
+            if (strlen($password) < 6) {
+                $errors[] = 'Password must be at least 6 characters long.';
+            }
+
+            if (strlen($password) > 15) {
+                $errors[] = 'Password cannot be longer than 15 characters.';
+            }
+
+            if (str_contains($username, ' ')) {
+                $errors[] = 'Username cannot contain spaces.';
+            }
+
+            if ($password !== $confirmPassword) {
+                $errors[] = 'Passwords do not match.';
+            }
+
+            // nesmie existovat username chyba podmienka
+
+            if (count($errors) > 0) {
+                return $this->html(['errors' => $errors]);
+            }
+
+            $user = new User();
+            $user->setUsername($username);
+            $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
+            $user->save();
+
+            return $this->redirect($this->url('auth.login'));
+
+        }
+
+        return $this->html(['errors' => $errors]);
+    }
+
     public function index(Request $request): Response
     {
         return $this->redirect(Configuration::LOGIN_URL);
@@ -45,16 +99,18 @@ class AuthController extends BaseController
      */
     public function login(Request $request): Response
     {
-        $logged = null;
-        if ($request->hasValue('submit')) {
-            $logged = $this->app->getAuthenticator()->login($request->value('username'), $request->value('password'));
-            if ($logged) {
-                return $this->redirect($this->url("admin.index"));
-            }
+        if (!$request->isPost()) {
+            return $this->html();
         }
 
-        $message = $logged === false ? 'Bad username or password' : null;
-        return $this->html(compact("message"));
+        $username = $request->value('username');
+        $password = $request->value('password');
+
+        if ($this->app->getAuthenticator()->login($username, $password)) {
+            return $this->redirect($this->url('admin.index'));
+        } else {
+            return $this->html(['message' => 'Invalid username or password.']);
+        }
     }
 
     /**

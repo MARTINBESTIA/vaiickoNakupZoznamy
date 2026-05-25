@@ -32,7 +32,12 @@ $view->setLayout('auth');
                             <button class="btn btn-primary" type="submit" name="submit">Log in
                             </button>
                         </div>
+
+                        <div class="text-center mx-auto mt-2">
+                                Not registered? <a href="<?= $link->url("auth.register") ?>">Register Now</a>
+                            </div>
                     </form>
+
                 </div>
             </div>
         </div>
