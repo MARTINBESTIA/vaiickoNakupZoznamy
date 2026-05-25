@@ -6,7 +6,7 @@ use Framework\Core\BaseController;
 use Framework\Http\Request;
 use Framework\Http\Responses\Response;
 
-class ZoznamyController extends BaseController
+class GroupsController extends BaseController
 {
 
     /**
@@ -14,6 +14,6 @@ class ZoznamyController extends BaseController
      */
     public function index(Request $request): Response
     {
-        return $this->html();
+        // TODO: Implement index() method.
     }
 }

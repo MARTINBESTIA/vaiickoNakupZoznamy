@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use Framework\Core\Model;
+use Framework\Core\IIdentity;
 
-class User extends Model
+class User extends Model implements IIdentity
 {
     protected ?int $id;
     protected ?string $username;
@@ -12,7 +13,7 @@ class User extends Model
 
     protected static function getTableName(): string
     {
-        return 'user';
+        return 'users';
     }
 
     protected static function getPkColumnName(): string
@@ -38,6 +39,11 @@ class User extends Model
     public function setPassword(?string $password): void
     {
         $this->password = $password;
+    }
+
+    public function getName(): string
+    {
+        return $this->username ?? '';
     }
 
 }

@@ -37,6 +37,8 @@ class AuthController extends BaseController
         if ($request->isPost()) {
             $username = $request->value('username');
             $password = $request->value('password');
+
+
             $confirmPassword = $request->value('confirmPassword');
 
             if (strlen($username) < 3) {
@@ -107,7 +109,7 @@ class AuthController extends BaseController
         $password = $request->value('password');
 
         if ($this->app->getAuthenticator()->login($username, $password)) {
-            return $this->redirect($this->url('admin.index'));
+            return $this->redirect($this->url('zoznamy.index'));
         } else {
             return $this->html(['message' => 'Invalid username or password.']);
         }
