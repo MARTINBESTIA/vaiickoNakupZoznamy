@@ -109,7 +109,7 @@ class AuthController extends BaseController
         $password = $request->value('password');
 
         if ($this->app->getAuthenticator()->login($username, $password)) {
-            return $this->redirect($this->url('zoznamy.index'));
+            return $this->redirect($this->url('groups.index'));
         } else {
             return $this->html(['message' => 'Invalid username or password.']);
         }

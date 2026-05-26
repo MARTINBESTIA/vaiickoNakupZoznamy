@@ -30,5 +30,14 @@ class Group extends Model
         $this->name = $name;
     }
 
+    protected static function getTableName(): string
+    {
+        return 'groups';
+    }
+
+    protected static function getPkColumnName(): string
+    {
+        return 'id';
+    }
 
 }
