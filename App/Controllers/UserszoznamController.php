@@ -51,4 +51,19 @@ class UserszoznamController extends BaseController
         return $this->redirect('?c=userszoznam&groupId=' . $groupId);
     }
 
+    public function addUser(Request $request): Response
+    {
+        $username = $request->value('username');
+        $groupId = $request->value('groupId');
+
+        $userId = User::getAll('`username` = ?', [$username])[0]->getId();
+
+        $userInGroup = new UserInGroup();
+        $userInGroup->setUserId($userId);
+        $userInGroup->setGroupId($groupId);
+        $userInGroup->save();
+
+        //todo ajax impl.
+        return $this->redirect('?c=userszoznam&groupId=' . $groupId);
+    }
 }

@@ -45,14 +45,5 @@
     </div>
 </div>
 
-<div id="addUserForm" style="display:block">
-    <form method="post" action="<?= $link->url("groups.addUser", ["username" => $user->getName(), "groupId" => $group->getId()]) ?>">
-        <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input name="username" type="text" id="username" class="form-control" placeholder="Username"
-                   required autofocus>
-        </div>
-        <button type="submit" class="btn btn-primary">Pridať uživateľa</button>
-    </form>
-</div>
+
 
