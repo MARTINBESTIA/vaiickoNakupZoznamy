@@ -12,12 +12,12 @@ INSERT INTO zoznam (name) VALUES
                               ('Nákupný zoznam KAUFLAND'),
                               ('Nákupný zoznam COOP Jednota');
 
-INSERT INTO groups (name) VALUES
-                               ('Rodina'),
-                               ('Priatelia'),
-                               ('Spolužiaci'),
-                               ('Kolegovia'),
-                               ('Neznámi');
+INSERT INTO groups (name, creator_id) VALUES
+                                          ('Rodina', 1),
+                                          ('Priatelia', 3),
+                                          ('Spolužiaci', 4),
+                                          ('Kolegovia', 5),
+                                          ('Neznámi', 1);
 
 INSERT INTO user_in_group (user_id, group_id) VALUES
                                                   (1, 1),

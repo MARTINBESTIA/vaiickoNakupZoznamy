@@ -9,6 +9,7 @@ class Group extends Model
     protected ?int $id;
 
     protected ?string $name;
+    protected ?int $creator_id;
 
     public function getId(): ?int
     {
@@ -38,6 +39,16 @@ class Group extends Model
     protected static function getPkColumnName(): string
     {
         return 'id';
+    }
+
+    public function getCreatorId(): ?int
+    {
+        return $this->creator_id;
+    }
+
+    public function setCreatorId(?int $creator_id): void
+    {
+        $this->creator_id = $creator_id;
     }
 
 }

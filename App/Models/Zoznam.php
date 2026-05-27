@@ -7,7 +7,8 @@ use Framework\Core\Model;
 class Zoznam extends Model
 {
     protected ?int $id;
-    protected ?string $name ;
+    protected ?string $name;
+    protected ?string $is_bought;
 
     protected static function getTableName(): string
     {
@@ -17,6 +18,36 @@ class Zoznam extends Model
     protected static function getPkColumnName(): string
     {
         return 'id';
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): void
+    {
+        $this->name = $name;
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function setId(?int $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function getIsBought(): ?string
+    {
+        return $this->is_bought;
+    }
+
+    public function setIsBought(?string $is_bought): void
+    {
+        $this->is_bought = $is_bought;
     }
 
 }

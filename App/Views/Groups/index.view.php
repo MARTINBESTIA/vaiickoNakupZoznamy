@@ -1,5 +1,7 @@
 <?php
 /** @var array $groups */
+/** @var int $currentUserId */
+/** @var \Framework\Auth\AppUser $user */
 /** @var \Framework\Support\LinkGenerator $link */
 ?>
 
@@ -23,17 +25,34 @@
             <tr>
                 <th scope="col">Názov skupiny</th>
                 <th scope="col">Počet ľudí</th>
+                <th >
             </tr>
             </thead>
             <tbody>
             <?php foreach ($groups as $group): ?>
                 <tr>
                     <td><?= $group->getName() ?></td>
-                    <td><a href="<?= $link->url("groups.show", ["id" => $group->getId()]) ?>">Zobraziť zoznam</a></td>
-                    <td><a href="<?= $link->url("groups.show", ["id" => $group->getId()]) ?>">Pridať ľudí</a></td>
+                    <td><a href="<?= $link->url("zoznamy.index", ["id" => $group->getId()]) ?>">Zobraziť zoznamy</a></td>
+                    <?php if ($group->getCreatorId() === $currentUserId): ?>
+                        <td><a href="<?= $link->url("userszoznam.index", ["groupId" => $group->getId()]) ?>">Spravovať ľudí</a></td>
+                    <?php else: ?>
+                        <td></td>
+                    <?php endif; ?>
                 </tr>
             <?php endforeach; ?>
             </tbody>
         </table>
     </div>
 </div>
+
+<div id="addUserForm" style="display:block">
+    <form method="post" action="<?= $link->url("groups.addUser", ["username" => $user->getName(), "groupId" => $group->getId()]) ?>">
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input name="username" type="text" id="username" class="form-control" placeholder="Username"
+                   required autofocus>
+        </div>
+        <button type="submit" class="btn btn-primary">Pridať uživateľa</button>
+    </form>
+</div>
+
