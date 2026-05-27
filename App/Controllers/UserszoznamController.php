@@ -33,8 +33,22 @@ class UserszoznamController extends BaseController
 
         return $this->html([
             'usersInGroup' => $userEntitiesInGroup,
+            'groupId' => $groupId,
             'groupName' => $groupName
         ]);
-
     }
+
+    public function deleteUser(Request $request): Response
+    {
+        $userId = $request->value('userId');
+        $groupId = $request->value('groupId');
+
+        $userInGroup = UserInGroup::getAll('`user_id` = ? AND `group_id` = ?', [$userId, $groupId])[0] ?? null;
+        if ($userInGroup) {
+            $userInGroup->delete();
+        }
+        //todo ajax impl.
+        return $this->redirect('?c=userszoznam&groupId=' . $groupId);
+    }
+
 }
