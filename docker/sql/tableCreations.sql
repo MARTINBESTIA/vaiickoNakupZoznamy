@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS polozka;
 DROP TABLE IF EXISTS zoznam_in_group;
 DROP TABLE IF EXISTS user_in_group;
 DROP TABLE IF EXISTS zoznam;
@@ -45,4 +46,13 @@ CREATE TABLE zoznam_in_group (
     PRIMARY KEY (zoznam_in_group_id),
     FOREIGN KEY (zoznam_id) REFERENCES zoznam(id) ON DELETE CASCADE,
     FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE
+);
+
+CREATE TABLE polozka (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    name varchar(255) NOT NULL,
+    amount int(11) NOT NULL,
+    unit_type varchar(50) NOT NULL,
+    image_path varchar(255) NOT NULL,
+    PRIMARY KEY (id)
 );

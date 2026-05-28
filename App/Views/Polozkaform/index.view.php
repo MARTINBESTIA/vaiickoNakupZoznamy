@@ -1,0 +1,41 @@
+<?php
+
+/** @var \Framework\Support\LinkGenerator $link */
+?>
+
+<div class="container">
+    <div class="row justify-content-center mt-4">
+        <div class="col-sm-9 col-md-7 col-lg-5">
+            <h2>Pridať položku</h2>
+            <form method="post" action="<?= $link->url("polozkaform.addPolozka") ?>" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Názov</label>
+                    <input type="text" name="name" id="name" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="amount" class="form-label">Množstvo</label>
+                    <input type="number" name="amount" id="amount" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="unitType" class="form-label">Jednotka</label>
+                    <select name="unitType" id="unitType" class="form-select" required>
+                        <option value="ks">ks</option>
+                        <option value="kg">kg</option>
+                        <option value="g">g</option>
+                        <option value="l">l</option>
+                        <option value="ml">ml</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="image" class="form-label">Obrázok</label>
+                    <input type="file" name="file" id="file" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Pridať položku</button>
+            </form>
+        </div>
+    </div>
+</div>

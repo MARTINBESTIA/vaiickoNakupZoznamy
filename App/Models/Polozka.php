@@ -8,12 +8,24 @@ class Polozka extends Model
 {
     protected ?int $id;
     protected ?string $name;
-    protected ?string $unit;
+    protected ?int $amount;
+    protected ?string $unit_type;
     protected ?string $image_path;
 
     /**
      * @return mixed
      */
+
+    public static function getTableName(): string
+    {
+        return 'polozka';
+    }
+
+    protected static function getPkColumnName(): string
+    {
+        return 'id';
+    }
+
     public function getId()
     {
         return $this->id;
@@ -30,18 +42,7 @@ class Polozka extends Model
     /**
      * @return mixed
      */
-    public function getUnit()
-    {
-        return $this->unit;
-    }
 
-    /**
-     * @param mixed $unit
-     */
-    public function setUnit($unit): void
-    {
-        $this->unit = $unit;
-    }
 
     /**
      * @return mixed
@@ -57,6 +58,36 @@ class Polozka extends Model
     public function setImagePath($image_path): void
     {
         $this->image_path = $image_path;
+    }
+
+    public function getUnitType(): ?string
+    {
+        return $this->unit_type;
+    }
+
+    public function setUnitType(?string $unit_type): void
+    {
+        $this->unit_type = $unit_type;
+    }
+
+    public function getAmount(): ?int
+    {
+        return $this->amount;
+    }
+
+    public function setAmount(?int $amount): void
+    {
+        $this->amount = $amount;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): void
+    {
+        $this->name = $name;
     }
 
 

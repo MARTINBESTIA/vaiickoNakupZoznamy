@@ -37,6 +37,7 @@
             <span class="navbar-text">Logged in user: <b><?= $user->getName() ?></b></span>
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
+                    <a class="nav-link" href="<?= $link->url('polozka.index') ?>">Manage products</a>
                     <a class="nav-link" href="<?= $link->url('auth.logout') ?>">Log out</a>
                 </li>
             </ul>
