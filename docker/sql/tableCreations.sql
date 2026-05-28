@@ -1,6 +1,7 @@
-DROP TABLE IF EXISTS polozka;
+DROP TABLE IF EXISTS polozka_in_zoznam;
 DROP TABLE IF EXISTS zoznam_in_group;
 DROP TABLE IF EXISTS user_in_group;
+DROP TABLE IF EXISTS polozka;
 DROP TABLE IF EXISTS zoznam;
 DROP TABLE IF EXISTS groups;
 DROP TABLE IF EXISTS users;
@@ -54,5 +55,17 @@ CREATE TABLE polozka (
     amount int(11) NOT NULL,
     unit_type varchar(50) NOT NULL,
     image_path varchar(255) NOT NULL,
+    price DECIMAL(10,2) NULL,
     PRIMARY KEY (id)
+);
+
+CREATE TABLE polozka_in_zoznam (
+    polozka_in_zoznam_id int(11) NOT NULL AUTO_INCREMENT,
+    polozka_id int(11) NOT NULL,
+    zoznam_id int(11) NOT NULL,
+    quantity int(11) NOT NULL DEFAULT 1,
+    is_checked CHAR(1) NOT NULL DEFAULT 'N',
+    PRIMARY KEY (polozka_in_zoznam_id),
+    FOREIGN KEY (polozka_id) REFERENCES polozka(id) ON DELETE CASCADE,
+    FOREIGN KEY (zoznam_id) REFERENCES zoznam(id) ON DELETE CASCADE
 );

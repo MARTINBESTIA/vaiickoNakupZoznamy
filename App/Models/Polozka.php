@@ -11,6 +11,7 @@ class Polozka extends Model
     protected ?int $amount;
     protected ?string $unit_type;
     protected ?string $image_path;
+    protected ?float $price;
 
     /**
      * @return mixed
@@ -88,6 +89,16 @@ class Polozka extends Model
     public function setName(?string $name): void
     {
         $this->name = $name;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?float $price): void
+    {
+        $this->price = $price;
     }
 
 
