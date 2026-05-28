@@ -32,6 +32,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="<?= $link->url('home.contact') ?>">Contact</a>
             </li>
+            <li>
+                <?php if ($user->isLoggedIn()) { ?>
+                    <a class="nav-link" href="<?= $link->url('groups.index') ?>">Domov</a>
+                <?php } ?>
+            </li>
         </ul>
         <?php if ($user->isLoggedIn()) { ?>
             <span class="navbar-text">Logged in user: <b><?= $user->getName() ?></b></span>
