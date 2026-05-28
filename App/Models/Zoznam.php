@@ -9,6 +9,7 @@ class Zoznam extends Model
     protected ?int $id;
     protected ?string $name;
     protected ?string $is_bought;
+    protected ?int $creator_id;
 
     protected static function getTableName(): string
     {
@@ -48,6 +49,16 @@ class Zoznam extends Model
     public function setIsBought(?string $is_bought): void
     {
         $this->is_bought = $is_bought;
+    }
+
+    public function getCreatorId(): ?int
+    {
+        return $this->creator_id;
+    }
+
+    public function setCreatorId(?int $creator_id): void
+    {
+        $this->creator_id = $creator_id;
     }
 
 }

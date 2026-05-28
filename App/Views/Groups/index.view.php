@@ -32,7 +32,7 @@
             <?php foreach ($groups as $group): ?>
                 <tr>
                     <td><?= $group->getName() ?></td>
-                    <td><a href="<?= $link->url("zoznamy.index", ["id" => $group->getId()]) ?>">Zobraziť zoznamy</a></td>
+                    <td><a href="<?= $link->url("zoznamy.index", ["groupId" => $group->getId()]) ?>">Zobraziť zoznamy</a></td>
                     <?php if ($group->getCreatorId() === $currentUserId): ?>
                         <td><a href="<?= $link->url("userszoznam.index", ["groupId" => $group->getId()]) ?>">Spravovať ľudí</a></td>
                     <?php else: ?>

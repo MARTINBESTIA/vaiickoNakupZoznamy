@@ -5,12 +5,12 @@ INSERT INTO users (username, password) VALUES
                                            ('peter', '$2y$12$cE5YDHNkA8X/o6bcpDHViecfst5PSztAeXd9PXeKFoEab1johOFtK'),
                                            ('lucia', '$2y$12$nF2ldRGamuXSPEQWje4SzOjQsH9/y67VG3a1kkZtHFtnOzLZM.Kv6');
 
-INSERT INTO zoznam (name) VALUES
-                              ('Nákupný zoznam LIDL'),
-                              ('Nákupný zoznam TESCO'),
-                              ('Nákupný zoznam BILLA'),
-                              ('Nákupný zoznam KAUFLAND'),
-                              ('Nákupný zoznam COOP Jednota');
+INSERT INTO zoznam (name, creator_id) VALUES
+                                          ('Nákupný zoznam LIDL', 1),
+                                          ('Nákupný zoznam TESCO', 1),
+                                          ('Nákupný zoznam BILLA', 3),
+                                          ('Nákupný zoznam KAUFLAND', 4),
+                                          ('Nákupný zoznam COOP Jednota', 5);
 
 INSERT INTO groups (name, creator_id) VALUES
                                           ('Rodina', 1),
@@ -27,3 +27,12 @@ INSERT INTO user_in_group (user_id, group_id) VALUES
                                                   (4, 3),
                                                   (5, 4),
                                                   (5, 2);
+
+INSERT INTO zoznam_in_group (zoznam_id, group_id) VALUES
+                                                      (1, 1),
+                                                      (2, 1),
+                                                      (2, 5),
+                                                      (3, 2),
+                                                      (4, 3),
+                                                      (5, 4),
+                                                      (5, 2);

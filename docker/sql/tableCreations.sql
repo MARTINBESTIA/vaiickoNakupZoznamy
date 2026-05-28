@@ -1,7 +1,9 @@
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS zoznam_in_group;
+DROP TABLE IF EXISTS user_in_group;
 DROP TABLE IF EXISTS zoznam;
 DROP TABLE IF EXISTS groups;
-DROP TABLE IF EXISTS user_in_group;
+DROP TABLE IF EXISTS users;
+
 
 CREATE TABLE users (
     id int(11) NOT NULL AUTO_INCREMENT,
@@ -13,8 +15,10 @@ CREATE TABLE users (
 CREATE TABLE zoznam (
     id int(11) NOT NULL AUTO_INCREMENT,
     name varchar(255) NOT NULL,
+    creator_id int(11) NOT NULL,
     is_bought CHAR(1) NOT NULL DEFAULT 'N',
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    FOREIGN KEY (creator_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE groups (
