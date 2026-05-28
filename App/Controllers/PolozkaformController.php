@@ -28,7 +28,7 @@ class PolozkaformController extends BaseController
 
         $polozkaCount = count(Polozka::getAll());
 
-        $imagePath = "uploads/" . $polozkaCount . '_' . time() . '_' . $name;
+        $imagePath = "uploads/" . $polozkaCount . '_' . time() . '_' . $name . '.jpg';
 
         $polozka = new Polozka();
 
