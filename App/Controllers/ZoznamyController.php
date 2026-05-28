@@ -39,6 +39,47 @@ class ZoznamyController extends BaseController
         return $this->html([
             "groupName" => $groupName,
             "zoznamy" => $zoznamsInGroup,
+            "groupId" => $groupId,
             "loggedUserId" => $userId], "index");
+    }
+
+    public function delete(Request $request): Response
+    {
+        $zoznamId = $request->value('zoznamId');
+        $groupId = $request->value('groupId');
+        $zoznam = Zoznam::getOne($zoznamId);
+        $zoznam->delete();
+
+        return $this->redirect($this->url("index", ["groupId" => $groupId]));
+    }
+
+    public function showZoznam(Request $request): Response
+    {
+        $zoznamId = $request->value('zoznamId');
+        $groupId = $request->value('groupId');
+        $zoznam = Zoznam::getOne($zoznamId);
+
+        return $this->html([
+            "zoznam" => $zoznam
+        ], "showZoznam");
+    }
+
+    public function addZoznam(Request $request): Response
+    {
+        $groupId = $request->value('groupId');
+        $zoznamName = $request->value('zoznamName');
+
+        $zoznam = new Zoznam();
+        $zoznam->setName($zoznamName);
+        $zoznam->setCreatorId($this->app->getAppUser()->getId());
+        $zoznam->setIsBought('N');
+        $zoznam->save();
+
+        $zoznamInGroup = new ZoznamInGroup();
+        $zoznamInGroup->setGroupId($groupId);
+        $zoznamInGroup->setZoznamId($zoznam->getId());
+        $zoznamInGroup->save();
+
+        return $this->redirect($this->url("index", ["groupId" => $groupId]));
     }
 }

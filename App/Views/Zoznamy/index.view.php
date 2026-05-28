@@ -2,6 +2,7 @@
 /** @var string $groupName */
 /** @var array $zoznamy */
 /** @var int $loggedUserId */
+/** @var int $groupId */
 /** @var \Framework\Support\LinkGenerator $link */
 ?>
 
@@ -32,9 +33,9 @@
                             Is not Bought
                         <?php endif; ?>
                     </td>
-                    <td><a href="<?= $link->url("zoznamy.showZoznam", ["groupId" => $zoznam->getId()]) ?>">Zobraziť zoznam</a></td>
+                    <td><a href="<?= $link->url("zoznamy.showZoznam", ["zoznamId" => $zoznam->getId()]) ?>">Zobraziť zoznam</a></td>
                     <?php if ($zoznam->getCreatorId() == $loggedUserId): ?>
-                        <td><a href="<?= $link->url("zoznamy.delete", ["groupId" => $zoznam->getId()]) ?>" class="text-danger">Vymazať zoznam</a></td>
+                        <td><a href="<?= $link->url("zoznamy.delete", ["zoznamId" => $zoznam->getId(), "groupId" => $groupId]) ?>" class="text-danger">Vymazať zoznam</a></td>
                     <?php endif; ?>
 
                 </tr>
@@ -49,7 +50,7 @@
                         <label for="zoznamName" class="form-label">Zadaj meno pre nový zoznam</label>
                         <input name="zoznamName" type="text" id="zoznamName" class="form-control" placeholder="zoznamName"
                                required autofocus>
-                        <input type="hidden" id="userId" name="userId" value="<?= $loggedUserId ?>">
+                        <input type="hidden" id="groupId" name="groupId" value="<?= $groupId ?>">
                     </div>
                     <button type="submit" class="btn btn-primary">Pridať zoznam</button>
                 </form>
