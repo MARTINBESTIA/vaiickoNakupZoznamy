@@ -65,7 +65,10 @@ class AuthController extends BaseController
                 $errors[] = 'Passwords do not match.';
             }
 
-            // nesmie existovat username chyba podmienka
+            $existingUser = User::getAll('`username` = ?', [$username]);
+            if (!empty($existingUser)) {
+                $errors[] = 'Používateľské meno je už obsadené.';
+            }
 
             if (count($errors) > 0) {
                 return $this->html(['errors' => $errors]);

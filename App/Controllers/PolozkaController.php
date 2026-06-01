@@ -36,17 +36,38 @@ class PolozkaController extends BaseController
 
     public function save(Request $request): Response
     {
-        $name = $request->value('name');
-        $amount = $request->value('amount');
+        $name     = trim($request->value('name') ?? '');
+        $amount   = $request->value('amount');
         $unitType = $request->value('unitType');
-        $price = $request->value('price');
-        $file = $request->file('file');
-
+        $price    = $request->value('price');
+        $file     = $request->file('file');
         $polozkaId = $request->value('polozkaId');
-        $polozka = Polozka::getOne($polozkaId);
+        $polozka  = Polozka::getOne($polozkaId);
+
+        $validUnits = ['ks', 'kg', 'g', 'l', 'ml'];
+        $errors = [];
+
+        if (strlen($name) < 2) {
+            $errors[] = 'Názov položky musí mať aspoň 2 znaky.';
+        }
+        if (strlen($name) > 100) {
+            $errors[] = 'Názov položky môže mať najviac 100 znakov.';
+        }
+        if (!is_numeric($amount) || (int) $amount < 1) {
+            $errors[] = 'Množstvo musí byť kladné celé číslo.';
+        }
+        if (!is_numeric($price) || (float) $price < 0) {
+            $errors[] = 'Cena musí byť nezáporné číslo.';
+        }
+        if (!in_array($unitType, $validUnits, true)) {
+            $errors[] = 'Neplatná jednotka.';
+        }
+
+        if (!empty($errors)) {
+            return $this->html(['errors' => $errors, 'polozka' => $polozka], 'form');
+        }
 
         $polozkaCount = count(Polozka::getAll());
-
         $imagePath = "uploads/" . $polozkaCount . '_' . time() . '_' . $name . '.jpg';
 
         if ($polozka) {
@@ -66,13 +87,11 @@ class PolozkaController extends BaseController
         }
 
         $polozka = new Polozka();
-
         $polozka->setName($name);
         $polozka->setAmount($amount);
         $polozka->setPrice($price);
         $polozka->setUnitType($unitType);
         $polozka->setImagePath($imagePath);
-
         $polozka->save();
 
         $file->store($imagePath);
@@ -80,5 +99,15 @@ class PolozkaController extends BaseController
         return $this->redirect($this->url("polozka.index"));
     }
 
+    public function delete(Request $request): Response
+    {
+        $polozkaId = $request->value('polozkaId');
+        $polozka = Polozka::getOne($polozkaId);
+        if ($polozka === null) {
+            return $this->redirect($this->url('polozka.index'));
+        }
+        $polozka->delete();
+        return $this->redirect($this->url('polozka.index'));
+    }
 
 }

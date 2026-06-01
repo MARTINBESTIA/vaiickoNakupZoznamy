@@ -7,16 +7,15 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-9 col-md-7 col-lg-5">
-            <h1>Zoznam skupiniek</h1>
-            <p><a href="<?= $link->url("groups.create") ?>">Vytvoriť novú skupinu</a></p>
-
-        </div>
         <div class="py-3">
-            <button type="button"
-                    onclick="window.location.href='<?= $link->url("home.index") ?>'"
-                    class="btn btn-primary tlacidlo-prekliknutie p-3">Vytvor novú skupinu
-            </button>
+            <form method="post" action="<?= $link->url('groups.addGroup') ?>">
+                <div class="mb-3">
+                    <label for="groupName" class="form-label">Zadaj meno pre novú skupinu</label>
+                    <input type="text" name="groupName" id="groupName" class="form-control"
+                           placeholder="Názov skupiny" required minlength="2" maxlength="100">
+                </div>
+                <button type="submit" class="btn btn-primary">Vytvoriť skupinu</button>
+            </form>
         </div>
     </div>
     <div class="table-responsive">

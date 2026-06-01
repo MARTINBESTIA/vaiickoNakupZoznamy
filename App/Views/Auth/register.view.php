@@ -28,7 +28,7 @@ $view->setLayout('auth');
                     <div class="text-center text-danger mb-3">
                         <?= @$message ?>
                     </div>
-                    <form class="form-signin" method="post" action="<?= $link->url("auth.register") ?>">
+                    <form class="form-signin" method="post" action="<?= $link->url("auth.register") ?>" onsubmit="validate_registration(event)">
                         <div class="form-label-group mb-3">
                             <label for="username" class="form-label">Username</label>
                             <input name="username" type="text" id="username" class="form-control" placeholder="Username"

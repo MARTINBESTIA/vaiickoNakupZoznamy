@@ -22,8 +22,9 @@
                     <span><?= $polozka->getName() ?> </span>
                     <span><?= $polozka->getAmount() ?> <?= $polozka->getUnitType() ?></span>
                     <span><?= $polozka->getPrice() ?> €</span>
-                    <a href="<?= $link->url("polozka.edit", ["polozkaId" => $polozka->getId()]) ?>" class="btn btn-primary">Edit</a
+                    <a href="<?= $link->url("polozka.edit", ["polozkaId" => $polozka->getId()]) ?>" class="btn btn-primary">Edit</a>
+                    <a href="<?= $link->url("polozka.delete", ["polozkaId" => $polozka->getId()]) ?>" class="btn btn-danger">Delete</a>
             </li>
         <?php endforeach; ?>
-    <ul>
+    </ul>
 </div>

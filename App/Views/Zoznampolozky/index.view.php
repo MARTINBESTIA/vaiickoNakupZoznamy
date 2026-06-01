@@ -21,6 +21,7 @@
         </form>
     </div>
 
+    <div class="table-responsive">
     <table class="table table-striped table-sm mt-3">
         <thead>
         <tr>
@@ -43,6 +44,7 @@
                         <input type="hidden" name="polozkaInZoznamId" value="<?= $item['polozkaInZoznam']->getPolozkaInZoznamId() ?>">
                         <input type="hidden" name="zoznamId" value="<?= $zoznamId ?>">
                         <input type="checkbox"
+                               id="item-check-<?= $item['polozkaInZoznam']->getPolozkaInZoznamId() ?>"
                                onchange="this.form.submit()"
                                 <?= $item['polozkaInZoznam']->getIsChecked() === 'Y' ? 'checked' : '' ?>>
                     </form>
@@ -51,6 +53,7 @@
         <?php endforeach; ?>
         </tbody>
     </table>
+    </div>
 
     <h2 class="mt-5">Pridať položku do zoznamu</h2>
 
@@ -62,7 +65,10 @@
         <button type="submit" class="btn btn-primary">Hľadať</button>
     </form>
 
+    <script>itemRefresh(<?= $zoznamId ?>);</script>
+
     <?php if ($searchResults !== null): ?>
+        <div class="table-responsive">
         <table class="table table-striped table-sm mt-3">
             <thead>
             <tr>
@@ -96,5 +102,6 @@
             <?php endif; ?>
             </tbody>
         </table>
+        </div>
     <?php endif; ?>
 </div>

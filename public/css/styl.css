@@ -1,7 +1,123 @@
+
+body {
+    background-color: rgb(227, 242, 253);
+    color: #1a1a2e;
+    font-family: 'Segoe UI', sans-serif;
+}
+
 .navbar {
-    border-bottom: 1px solid grey;
+    background-color: rgb(21, 101, 192) !important;
+    border-bottom: 1px solid rgb(30, 136, 229);
 }
 
 .navbar-brand img {
     width: 50px;
+    filter: brightness(0) invert(1);
+}
+
+.navbar .nav-link,
+.navbar .navbar-text {
+    color: #ffffff !important;
+}
+
+.navbar .nav-link:hover {
+    color: rgb(227, 242, 253) !important;
+    text-decoration: underline;
+}
+
+.card {
+    background-color: rgb(187, 222, 251);
+    border: 1px solid rgb(144, 202, 249);
+    box-shadow: 0 2px 8px rgba(21, 101, 192, 0.15);
+    border-radius: 8px;
+}
+
+.btn-primary {
+    background-color: rgb(30, 136, 229);
+    border-color: rgb(21, 101, 192);
+}
+
+.btn-primary:hover {
+    background-color: rgb(21, 101, 192);
+    border-color: #0d47a1;
+}
+
+thead th {
+    background-color: rgb(21, 101, 192);
+    color: #ffffff;
+    border-color: rgb(30, 136, 229);
+}
+
+tbody tr:hover {
+    background-color: #dceefb !important;
+}
+
+h1, h2, h3 {
+    color: rgb(21, 101, 192);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: rgb(30, 136, 229);
+    box-shadow: 0 0 0 0.2rem rgba(30, 136, 229, 0.3);
+}
+
+a {
+    color: rgb(30, 136, 229);
+}
+
+a:hover {
+    color: rgb(21, 101, 192);
+}
+
+.form-label {
+    color: rgb(13, 71, 161);
+    font-weight: 500;
+}
+
+.alert-danger {
+    background-color: #fde8e8;
+    border-color: #ef9a9a;
+    color: #c62828;
+}
+
+.web-content {
+    max-width: 1200px;
+    width: 100%;
+    margin: auto;
+    padding-bottom: 2rem;
+}
+
+.table {
+    background-color: #ffffff;
+    border-radius: 6px;
+}
+
+@media (max-width: 768px) {
+    h1, h2, h3 { font-size: 22px; }
+    .container { padding: 0 8px; }
+    img { max-width: 100%; height: auto; }
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+td:last-child {
+    white-space: nowrap;
+}
+
+hr {
+    border-width: 2px;
+    border-color: rgb(21, 101, 192);
+    opacity: 0.3;
+}
+
+input[type="hidden"] {
+    display: none;
+}
+
+.table th, .table td {
+    padding: 12px 10px;
 }

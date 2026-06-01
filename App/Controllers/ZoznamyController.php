@@ -64,8 +64,21 @@ class ZoznamyController extends BaseController
 
     public function addZoznam(Request $request): Response
     {
-        $groupId = $request->value('groupId');
-        $zoznamName = $request->value('zoznamName');
+        $json       = $request->json();
+        $groupId    = $json->groupId;
+        $zoznamName = trim($json->zoznamName);
+
+        $errors = [];
+        if (strlen($zoznamName) < 2) {
+            $errors[] = 'Názov zoznamu musí mať aspoň 2 znaky.';
+        }
+        if (strlen($zoznamName) > 100) {
+            $errors[] = 'Názov zoznamu môže mať najviac 100 znakov.';
+        }
+
+        if (!empty($errors)) {
+            return $this->json(['errors' => $errors]);
+        }
 
         $zoznam = new Zoznam();
         $zoznam->setName($zoznamName);
@@ -78,7 +91,54 @@ class ZoznamyController extends BaseController
         $zoznamInGroup->setZoznamId($zoznam->getId());
         $zoznamInGroup->save();
 
-        return $this->redirect($this->url("index", ["groupId" => $groupId]));
+        return $this->json([
+            'id'        => $zoznam->getId(),
+            'name'      => $zoznam->getName(),
+            'creatorId' => $zoznam->getCreatorId(),
+            'updateUrl' => $this->url('zoznamy.editZoznam', [
+                'zoznamId' => $zoznam->getId(),
+                'groupId'  => $groupId
+            ]),
+            'deleteUrl' => $this->url('zoznamy.delete', [
+                'zoznamId' => $zoznam->getId(),
+                'groupId'  => $groupId
+            ]),
+            'showUrl'   => $this->url('zoznamy.showZoznam', ['zoznamId' => $zoznam->getId()])
+        ]);
+    }
+
+    public function editZoznam(Request $request): Response
+    {
+        $zoznamId = $request->value('zoznamId');
+        $groupId  = $request->value('groupId');
+        $zoznam   = Zoznam::getOne($zoznamId);
+        return $this->html(['zoznam' => $zoznam, 'groupId' => $groupId, 'errors' => []], 'editZoznam');
+    }
+
+    public function updateZoznam(Request $request): Response
+    {
+        $zoznamId = $request->value('zoznamId');
+        $groupId  = $request->value('groupId');
+        $newName  = trim($request->value('zoznamName') ?? '');
+
+        $errors = [];
+        if (strlen($newName) < 2) {
+            $errors[] = 'Názov zoznamu musí mať aspoň 2 znaky.';
+        }
+        if (strlen($newName) > 100) {
+            $errors[] = 'Názov zoznamu môže mať najviac 100 znakov.';
+        }
+
+        $zoznam = Zoznam::getOne($zoznamId);
+
+        if (!empty($errors)) {
+            return $this->html(['zoznam' => $zoznam, 'groupId' => $groupId, 'errors' => $errors], 'editZoznam');
+        }
+
+        $zoznam->setName($newName);
+        $zoznam->save();
+
+        return $this->redirect($this->url('index', ['groupId' => $groupId]));
     }
 
     public function addPolozka(Request $request): Response

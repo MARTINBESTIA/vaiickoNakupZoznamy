@@ -39,6 +39,33 @@ class GroupsController extends BaseController
     }
 
 
+    public function addGroup(Request $request): Response
+    {
+        $groupName = trim($request->value('groupName') ?? '');
+
+        $errors = [];
+        if (strlen($groupName) < 2) {
+            $errors[] = 'Názov skupiny musí mať aspoň 2 znaky.';
+        }
+        if (strlen($groupName) > 100) {
+            $errors[] = 'Názov skupiny môže mať najviac 100 znakov.';
+        }
+
+        if (empty($errors)) {
+            $group = new Group();
+            $group->setName($groupName);
+            $group->setCreatorId($this->app->getAppUser()->getId());
+            $group->save();
+
+            $userInGroup = new UserInGroup();
+            $userInGroup->setGroupId($group->getId());
+            $userInGroup->setUserId($this->app->getAppUser()->getId());
+            $userInGroup->save();
+        }
+
+        return $this->redirect($this->url('groups.index', ['errors' => $errors]));
+    }
+
     function index(Request $request): Response
     {
         $username = $this->app->getAppUser()->getName();

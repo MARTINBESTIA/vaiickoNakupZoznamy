@@ -7,7 +7,12 @@
     <div class="row justify-content-center mt-4">
         <div class="col-sm-9 col-md-7 col-lg-5">
             <h2>Pridať položku</h2>
-            <form method="post" action="<?= $link->url("polozka.save") ?>" enctype="multipart/form-data">
+            <?php if (!empty($errors ?? [])): ?>
+                <?php foreach ($errors as $error): ?>
+                    <p class="text-danger"><?= htmlspecialchars($error) ?></p>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            <form method="post" action="<?= $link->url("polozka.save") ?>" enctype="multipart/form-data" onsubmit="validate_polozka(event)">
                 <input type="hidden" name="polozkaId" value="<?= htmlspecialchars(@$polozka?->getId() ?? "") ?>">
                 <div class="mb-3">
                     <label for="name" class="form-label">Názov</label>
